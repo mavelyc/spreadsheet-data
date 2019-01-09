@@ -5,6 +5,7 @@ import xlsxwriter
 workbook = xlsxwriter.Workbook('final.xlsx')
 worksheet = workbook.add_worksheet()
 
+worksheet.set_column(0,0,25)
 worksheet.write(0,0,'Date')
 worksheet.write(0,1,'Number')
 worksheet.write(0,2,'Degrees')
@@ -12,7 +13,7 @@ worksheet.write(0,3,'Percent1')
 worksheet.write(0,4,'Percent2')
 
 cell_format = workbook.add_format()
-cell_format.set_num_format('dd/mm/yyyy hh:mm AM/PM')
+cell_format.set_num_format('dd/mm/yyyy hh:mm')
 
 #read values
 book = xlrd.open_workbook('Cx_Data SYS01 CTA Alim T4 H4 Sept1.xls')
