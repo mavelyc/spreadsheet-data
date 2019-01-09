@@ -20,9 +20,11 @@ sheet = book.sheet_by_index(0)
 i = 7
 j = 0
 k = 1
-while (sheet.cell(i,j).value != xlrd.empty_cell.value):
-    worksheet.write(k,j)
-
+while (i<295):
+    if j==0:
+        worksheet.write(k,j,sheet.cell(i,j).value, cell_format)
+    else: 
+        worksheet.write(k,j,sheet.cell(i,j).value)
     j+=1
     if j > 4:
         j=j%5
@@ -30,11 +32,11 @@ while (sheet.cell(i,j).value != xlrd.empty_cell.value):
         k+=1
 
 
-
+""" 
 
 i = sheet.cell(7,0).value
 j = sheet.cell(8,0).value
 worksheet.write(1,0,i, cell_format)
-worksheet.write(2,0,j,cell_format)
+worksheet.write(2,0,j,cell_format) """
 
 workbook.close()
