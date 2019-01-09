@@ -11,13 +11,15 @@ worksheet.write(0,2,'Degrees')
 worksheet.write(0,3,'Percent1')
 worksheet.write(0,4,'Percent2')
 
+cell_format = workbook.add_format()
+cell_format.set_num_format('dd/mm/yyyy hh:mm AM/PM')
 
 #read values
 book = xlrd.open_workbook('Cx_Data SYS01 CTA Alim T4 H4 Sept1.xls')
 sheet = book.sheet_by_index(0)
-i = sheet.cell(7,1).value
-j = sheet.cell(1,1).value
-print i
-worksheet.write(1,0,str(i))
+i = sheet.cell(7,0).value
+j = sheet.cell(8,0).value
+worksheet.write(1,0,i, cell_format)
+worksheet.write(2,0,j,cell_format)
 
 workbook.close()
