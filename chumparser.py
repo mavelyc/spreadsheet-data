@@ -38,12 +38,4 @@ for f in files:
             i+=1
             k+=1
 
-
-""" 
-
-i = sheet.cell(7,0).value
-j = sheet.cell(8,0).value
-worksheet.write(1,0,i, cell_format)
-worksheet.write(2,0,j,cell_format) """
-
 workbook.close()
