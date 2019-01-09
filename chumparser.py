@@ -1,5 +1,10 @@
 import xlrd
 import xlsxwriter
+import glob
+
+#glob set up
+path = './C*.xls'
+files = glob.glob(path)
 
 #intial write to new excel file
 workbook = xlsxwriter.Workbook('final.xlsx')
@@ -16,21 +21,22 @@ cell_format = workbook.add_format()
 cell_format.set_num_format('dd/mm/yyyy hh:mm')
 
 #read values
-book = xlrd.open_workbook('Cx_Data SYS01 CTA Alim T4 H4 Sept1.xls')
-sheet = book.sheet_by_index(0)
-i = 7
-j = 0
 k = 1
-while (i<295):
-    if j==0:
-        worksheet.write(k,j,sheet.cell(i,j).value, cell_format)
-    else: 
-        worksheet.write(k,j,sheet.cell(i,j).value)
-    j+=1
-    if j > 4:
-        j=j%5
-        i+=1
-        k+=1
+for f in files:
+    book = xlrd.open_workbook(f)
+    sheet = book.sheet_by_index(0)
+    i = 7
+    j = 0
+    while (i<295):
+        if j==0:
+            worksheet.write(k,j,sheet.cell(i,j).value, cell_format)
+        else: 
+            worksheet.write(k,j,sheet.cell(i,j).value)
+        j+=1
+        if j > 4:
+            j=j%5
+            i+=1
+            k+=1
 
 
 """ 
