@@ -7,7 +7,7 @@ path = './C*.xls'
 files = glob.glob(path)
 
 #intial write to new excel file
-workbook = xlsxwriter.Workbook('final.xlsx')
+workbook = xlsxwriter.Workbook('1hr_final.xlsx')
 worksheet = workbook.add_worksheet()
 
 worksheet.set_column(0,0,25)
