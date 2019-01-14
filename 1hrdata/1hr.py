@@ -12,8 +12,8 @@ worksheet = workbook.add_worksheet()
 
 worksheet.set_column(0,0,25)
 worksheet.write(0,0,'Date')
-worksheet.write(0,1,'Number')
-worksheet.write(0,2,'Degrees')
+worksheet.write(0,1,'degrees C')
+worksheet.write(0,2,'degrees C')
 worksheet.write(0,3,'Percent1')
 worksheet.write(0,4,'Percent2')
 
