@@ -24,6 +24,7 @@ while (iterate<6001):
         iterate+=1
     else:
         worksheet.write(count,1,val)
+        worksheet.write(count,0,sheet.cell(count,3).value)
         #print iterate,count
         final = total/(iterate-count)
         worksheet.write(count,2,final)
