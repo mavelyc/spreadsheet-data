@@ -7,10 +7,10 @@ data_points = input("Number of data points? ") #you can change this value to a c
 fname = raw_input("Name of file? ") #you can change for a constant name of file
 
 #intial write to new excel file
-workbook = xlsxwriter.Workbook('1hr_tmp_nonpoll.xlsx')
+workbook = xlsxwriter.Workbook('TEMP.xlsx')
 worksheet = workbook.add_worksheet()
 
-with open(fname) as csv_file:
+with open(fname + ".csv") as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line = 0
     for time,value in csv_reader:
@@ -29,3 +29,9 @@ for i in range(1,data_points + 1):
     worksheet.write(i,3,formula2)
 
 workbook.close()
+
+print "--------------------------------------------------------------------------"
+print "SAVE TEMP.XLSX FILE BEFORE CONTINUING!!"
+print "--------------------------------------------------------------------------"
+
+import nonpoll2

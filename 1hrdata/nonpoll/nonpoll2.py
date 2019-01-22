@@ -12,7 +12,7 @@ worksheet.write(0,0,"Date")
 worksheet.write(0,1,"Time")
 worksheet.write(0,2,"Value")
 
-book = xlrd.open_workbook('1hr_tmp_nonpoll.xlsx')
+book = xlrd.open_workbook('TEMP.xlsx')
 sheet = book.sheet_by_index(0)
 
 timeval = sheet.cell(1,2).value
@@ -48,4 +48,4 @@ worksheet.write(count,2,final)
 
         
 workbook.close()
-os.remove("1hr_tmp_nonpoll.xlsx")
+os.remove("TEMP.xlsx")
