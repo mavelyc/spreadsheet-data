@@ -1,7 +1,11 @@
 import xlsxwriter
 import xlrd
+import os
 
-workbook = xlsxwriter.Workbook('1hr_final_nonpoll.xlsx')
+data_points = input("Number of data points? ")
+newfile = raw_input("Name of new file? ")
+
+workbook = xlsxwriter.Workbook(newfile + ".xlsx")
 worksheet = workbook.add_worksheet()
 
 worksheet.write(0,0,"Date")
@@ -17,7 +21,7 @@ count = 1
 start = 1
 iterate = 1
 total=0
-while (iterate<6001):
+while (iterate< data_points + 1):
     if (sheet.cell(iterate,2).value == timeval and sheet.cell(iterate,3).value == dateval):
         tmp = sheet.cell(iterate,1).value
         tmp = tmp.encode('ascii')
@@ -29,7 +33,7 @@ while (iterate<6001):
         worksheet.write(count,0,sheet.cell(start,3).value)
         #print iterate,count
         final = total/(iterate-start)
-        print final
+        #print final
         worksheet.write(count,2,final)
         start=iterate
         count+=1
@@ -39,8 +43,9 @@ while (iterate<6001):
 
 worksheet.write(count,1,timeval)
 worksheet.write(count,0,sheet.cell(start,3).value)
-final = total/(iterate-count)
+final = total/(iterate-start)
 worksheet.write(count,2,final)
 
         
 workbook.close()
+os.remove("1hr_tmp_nonpoll.xlsx")
