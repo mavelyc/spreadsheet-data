@@ -11,29 +11,34 @@ worksheet.write(0,2,"Value")
 book = xlrd.open_workbook('1hr_tmp_nonpoll.xlsx')
 sheet = book.sheet_by_index(0)
 
-val = sheet.cell(1,2).value
+timeval = sheet.cell(1,2).value
+dateval = sheet.cell(1,3).value
 count = 1
+start = 1
 iterate = 1
 total=0
 while (iterate<6001):
-    if (sheet.cell(iterate,2).value == val):
+    if (sheet.cell(iterate,2).value == timeval and sheet.cell(iterate,3).value == dateval):
         tmp = sheet.cell(iterate,1).value
         tmp = tmp.encode('ascii')
         tmp = float(tmp)
         total += tmp
         iterate+=1
     else:
-        worksheet.write(count,1,val)
-        worksheet.write(count,0,sheet.cell(count,3).value)
+        worksheet.write(count,1,timeval)
+        worksheet.write(count,0,sheet.cell(start,3).value)
         #print iterate,count
-        final = total/(iterate-count)
+        final = total/(iterate-start)
+        print final
         worksheet.write(count,2,final)
-        count=iterate+1
-        iterate=count
-        val = sheet.cell(count,2).value
+        start=iterate
+        count+=1
+        timeval = sheet.cell(start,2).value
+        dateval = sheet.cell(start,3).value
+        total=0
 
-worksheet.write(count,1,val)
-#print iterate,count
+worksheet.write(count,1,timeval)
+worksheet.write(count,0,sheet.cell(start,3).value)
 final = total/(iterate-count)
 worksheet.write(count,2,final)
 
