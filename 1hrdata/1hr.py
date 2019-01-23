@@ -9,7 +9,11 @@ files = glob.glob(path)
 num_inputs = input("How many variables? ")
 
 #intial write to new excel file
-workbook = xlsxwriter.Workbook('1hr_final.xlsx')
+book = xlrd.open_workbook(files[0])
+sheet = book.sheet_by_index(0)
+first_file = sheet.cell(0,1).value
+
+workbook = xlsxwriter.Workbook(first_file + ".xlsx")
 worksheet = workbook.add_worksheet()
 worksheet.set_column(0,0,25)
 
