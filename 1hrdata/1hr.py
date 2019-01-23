@@ -3,7 +3,13 @@ import xlsxwriter
 import glob
 
 #glob set up
-path = './C*.xls'
+filetype = raw_input("Common name between all files you want to scan? ")
+ending = raw_input("File type/endings? ")
+path = './' + filetype + '*.' + ending
+
+print path
+
+
 files = glob.glob(path)
 
 num_inputs = input("How many variables? ")
