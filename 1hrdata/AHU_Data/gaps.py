@@ -3,23 +3,38 @@ import xlsxwriter
 import xlrd
 import os
 
-file_name = raw_input("Name of file? ")
-newfile = raw_input("Name of new file? ")
+# file_name = raw_input("Name of file? ")
+# newfile = raw_input("Name of new file? ")
 
-workbook = xlsxwriter.Workbook(newfile+ ".xlsx")
-worksheet = workbook.add_worksheet()
+# workbook = xlsxwriter.Workbook(newfile + ".xlsx")
+# worksheet = workbook.add_worksheet()
 
-worksheet.write(0,0,"Date")
-worksheet.write(0,1,"Time")
-worksheet.write(0,2,"Value")
+# worksheet.write(0,0,"Date")
+# worksheet.write(0,1,"Time")
+# worksheet.write(0,2,"Value")
 
-book = xlrd.open_workbook(file_name +'.xlsx')
+book = xlrd.open_workbook("nonpollfinal.xlsx")
 sheet = book.sheet_by_index(0)
 
-val = sheet.cell(1,1).value
-i = 1
-while(sheet.cell(i+1,1).value != ''):
-    
+count = 1
+val = sheet.cell(count,1).value
+
+while (sheet.cell(count,1).value != ''):
+    print count
+    count+=1
+
+
+# while(sheet.cell(i+1,1).value != ''):
+#     #print sheet.cell(i+1,1).value
+#     i+=1
+#     # if(sheet.cell(i+1,1).value < sheet.cell(i,1).value):
+#     #     if (sheet.cell(i+1,1).value != sheet.cell(i,1).value - 1):
+#     #         while(sheet.cell(i+1,1).value != ''):
+#     #             count+=1
+#     #         print count
+
+#     #else: #for next day
+# print "hello"
     
 
 # timeval = sheet.cell(1,2).value
@@ -54,5 +69,5 @@ while(sheet.cell(i+1,1).value != ''):
 # worksheet.write(count,2,final)
 
         
-workbook.close()
+# workbook.close()
 #os.remove(file_name + ".xlsx")
