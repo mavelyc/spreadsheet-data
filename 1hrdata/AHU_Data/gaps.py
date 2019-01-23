@@ -13,15 +13,16 @@ import os
 # worksheet.write(0,1,"Time")
 # worksheet.write(0,2,"Value")
 
-book = xlrd.open_workbook("nonpollfinal.xlsx")
+book = xlrd.open_workbook("NEW.xlsx")
 sheet = book.sheet_by_index(0)
 
 count = 1
-val = sheet.cell(count,1).value
+val = sheet.cell(count,3).value
+print val
 
-while (sheet.cell(count,1).value != ''):
-    print count
-    count+=1
+# while (sheet.cell(count,1).value != ''):
+#     print count
+#     count+=1
 
 
 # while(sheet.cell(i+1,1).value != ''):

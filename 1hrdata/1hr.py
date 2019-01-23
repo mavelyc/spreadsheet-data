@@ -6,16 +6,22 @@ import glob
 path = './C*.xls'
 files = glob.glob(path)
 
+num_inputs = input("How many variables? ")
+
 #intial write to new excel file
 workbook = xlsxwriter.Workbook('1hr_final.xlsx')
 worksheet = workbook.add_worksheet()
-
 worksheet.set_column(0,0,25)
-worksheet.write(0,0,'Date')
-worksheet.write(0,1,'degrees C')
-worksheet.write(0,2,'degrees C')
-worksheet.write(0,3,'Percent1')
-worksheet.write(0,4,'Percent2')
+
+for title in range(num_inputs):
+    worksheet.write(0,title,'Var'+str(title+1))
+
+
+# worksheet.write(0,0,'Date')
+# worksheet.write(0,1,'Var1')
+# worksheet.write(0,2,'Var2')
+# worksheet.write(0,3,'Percent1')
+# worksheet.write(0,4,'Percent2')
 
 cell_format = workbook.add_format()
 cell_format.set_num_format('dd/mm/yyyy hh:mm')
@@ -42,8 +48,8 @@ for f in files:
             ave = total/12.0
             worksheet.write(k,j,ave)
         j+=1
-        if j > 4:
-            j=j%5
+        if j > num_inputs-1:
+            j=0
             i+=12
             k+=1
 
