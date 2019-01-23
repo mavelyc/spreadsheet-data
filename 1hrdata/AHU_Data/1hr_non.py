@@ -46,5 +46,13 @@ for f in files:
             i+=1
             k+=1
 
+for all in range(1,k):
+    formula = '=HOUR(A' + str(all+1) + ')'
+    formula2 = '=TEXT(A' + str(all+1) + ','+'"mm/dd/yy"'+')'
+    worksheet.write(all,2,formula)
+    worksheet.write(all,3,formula2)
+
+    
+
 
 workbook.close()
