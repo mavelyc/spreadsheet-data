@@ -46,7 +46,8 @@ for f in files:
             for num in range(12):
                 tmp = sheet.cell(count,j).value
                 tmp = tmp.encode('ascii')
-                tmp = float(tmp)
+                if tmp == '': tmp = 0
+                else: tmp = float(tmp)
                 total= total + tmp
                 count+=1
             ave = total/12.0
