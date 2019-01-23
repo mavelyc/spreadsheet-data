@@ -52,7 +52,5 @@ for all in range(1,k):
     worksheet.write(all,2,formula)
     worksheet.write(all,3,formula2)
 
-    
-
 
 workbook.close()
