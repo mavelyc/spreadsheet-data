@@ -58,21 +58,33 @@ for top in range(1,k):
     formula = '=HOUR(A' + str(top+1) + ')'
     formula2 = '=TEXT(A' + str(top+1) + ','+'"mm/dd/yy"'+')'
     formula3 = '=' + letter_hour + str(top+1) + '&' + letter_date + str(top+1)
-    formula5 = '=HOUR('+ newdate + str(top+1) + ')'
-    formula6 = '=TEXT('+ newdate + str(top+1) + ','+'"mm/dd/yy"'+')'
-    formula7 = '=' + newletter_hour + str(top+1) + '&' + newletter_date + str(top+1)
+    # formula5 = '=HOUR('+ newdate + str(top+1) + ')'
+    # formula6 = '=TEXT('+ newdate + str(top+1) + ','+'"mm/dd/yy"'+')'
+    # formula7 = '=' + newletter_hour + str(top+1) + '&' + newletter_date + str(top+1)
     worksheet.write(top,num_inputs,formula)
     worksheet.write(top,num_inputs+1,formula2)
     worksheet.write(top,num_inputs+2,formula3)
-    worksheet.write(top,num_inputs+5,formula5)
-    worksheet.write(top,num_inputs+6,formula6)
-    worksheet.write(top,num_inputs+7,formula7)
+    # worksheet.write(top,num_inputs+5,formula5)
+    # worksheet.write(top,num_inputs+6,formula6)
+    # worksheet.write(top,num_inputs+7,formula7)
+
+for rows in range(1,num_dates*24+1):
+    formula5 = '=HOUR('+ newdate + str(rows+1) + ')'
+    formula6 = '=TEXT('+ newdate + str(rows+1) + ','+'"mm/dd/yy"'+')'
+    formula7 = '=' + newletter_hour + str(rows+1) + '&' + newletter_date + str(rows+1)
+    worksheet.write(rows,num_inputs+5,formula5)
+    worksheet.write(rows,num_inputs+6,formula6)
+    worksheet.write(rows,num_inputs+7,formula7)
 
 worksheet.write(1,num_inputs+4,startdate,cell_format)
 initial_date_column = chr(ord('A')+num_inputs+4)
 for date in range(2,num_dates*24+1):
     formula4 = '=$'+ initial_date_column +str(date)+'+TIME(1,0,0)'
     worksheet.write(date,num_inputs+4,formula4,cell_format)
+
+    worksheet.write(top,num_inputs+5,formula5)
+    worksheet.write(top,num_inputs+6,formula6)
+    worksheet.write(top,num_inputs+7,formula7)
 
 workbook.close()
 
