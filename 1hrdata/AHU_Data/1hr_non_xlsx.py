@@ -88,12 +88,35 @@ for date in range(2,num_dates*24+1):
 
 workbook.close()
 
+
+
+
+
 print "--------------------------------------------------------------------------"
 print "SAVE TEMP.XLSX FILE BEFORE CONTINUING!!"
 print "--------------------------------------------------------------------------"
 
 
-# #Below calculates and writes the average
+wait = input("????")
+
+
+#intial write to new excel file
+# book = xlrd.open_workbook(files[0])
+# sheet = book.sheet_by_index(0)
+# first_file = sheet.cell(0,1).value
+
+workbook = xlsxwriter.Workbook("final.xlsx")
+worksheet = workbook.add_worksheet()
+# worksheet.set_column(0,0,25)
+
+for title in range(num_inputs):
+    worksheet.write(0,title,'Var'+str(title+1))
+
+
+
+workbook.close()
+
+#Below calculates and writes the average
 # column = 1
 # while (column < num_inputs):
 #     if (sheet.cell(iterate,2).value == timeval and sheet.cell(iterate,3).value == dateval):
