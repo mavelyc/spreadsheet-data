@@ -6,6 +6,7 @@ import glob
 #glob set up
 filetype = raw_input("Common name between all files you want to scan? ")
 ending = raw_input("File type/endings? ")
+startdate = raw_input("What is the start date in mm/dd/yyyy? ")
 path = './' + filetype + '*.' + ending
 
 files = glob.glob(path)
@@ -56,7 +57,19 @@ for top in range(1,k):
     worksheet.write(top,num_inputs,formula)
     worksheet.write(top,num_inputs+1,formula2)
     worksheet.write(top,num_inputs+2,formula3)
-#worksheet.write(k-1,num_inputs+2,formula3)
+
+worksheet.write(1,num_inputs+4,startdate,cell_format)
+initial_date_column = chr(ord('A')+num_inputs+4)
+for date in range(2,num_dates*24+1):
+    formula4 = '=$'+ initial_date_column +str(date)+'+TIME(1,0,0)'
+    worksheet.write(date,num_inputs+4,formula4,cell_format)
+
+workbook.close()
+
+print "--------------------------------------------------------------------------"
+print "SAVE TEMP.XLSX FILE BEFORE CONTINUING!!"
+print "--------------------------------------------------------------------------"
+
 
 # #Below calculates and writes the average
 # column = 1
@@ -93,7 +106,7 @@ for top in range(1,k):
 #     formula4 = '=$F'+str(date)+'+TIME(1,0,0)'
 #     worksheet.write(date,5,formula4,cell_format1)
 
-workbook.close()
+#workbook.close()
 
 # wait = raw_input ("Continue? ")
 
