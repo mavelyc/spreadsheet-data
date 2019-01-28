@@ -58,15 +58,9 @@ for top in range(1,k):
     formula = '=HOUR(A' + str(top+1) + ')'
     formula2 = '=TEXT(A' + str(top+1) + ','+'"mm/dd/yy"'+')'
     formula3 = '=' + letter_hour + str(top+1) + '&' + letter_date + str(top+1)
-    # formula5 = '=HOUR('+ newdate + str(top+1) + ')'
-    # formula6 = '=TEXT('+ newdate + str(top+1) + ','+'"mm/dd/yy"'+')'
-    # formula7 = '=' + newletter_hour + str(top+1) + '&' + newletter_date + str(top+1)
     worksheet.write(top,num_inputs,formula)
     worksheet.write(top,num_inputs+1,formula2)
     worksheet.write(top,num_inputs+2,formula3)
-    # worksheet.write(top,num_inputs+5,formula5)
-    # worksheet.write(top,num_inputs+6,formula6)
-    # worksheet.write(top,num_inputs+7,formula7)
 
 for rows in range(1,num_dates*24+1):
     formula5 = '=HOUR('+ newdate + str(rows+1) + ')'
@@ -86,9 +80,16 @@ for date in range(2,num_dates*24+1):
     worksheet.write(top,num_inputs+6,formula6)
     worksheet.write(top,num_inputs+7,formula7)
 
+serial_letter1 = chr(ord('A')+num_inputs+2)
+serial_letter2 = chr(ord('A')+num_inputs+7)
+curr_col = chr(ord('A')+num_inputs+8)
+for var in range(1,num_inputs):
+    var_letter = chr(ord('A')+var)
+    for aveif in range(1,num_dates*24+1):
+        formula8 = '=IFERROR(AVERAGEIF($'+serial_letter1 + '$2:$' + serial_letter1 + '$' + str(k) + ',' + serial_letter2 + str(aveif+1) + ',$' + var_letter + '$2:$' + var_letter + '$' + str(k) +'),' + curr_col + str(aveif) + ')'  
+        worksheet.write(aveif,num_inputs+8,formula8)
+
 workbook.close()
-
-
 
 
 
@@ -97,86 +98,25 @@ print "SAVE TEMP.XLSX FILE BEFORE CONTINUING!!"
 print "--------------------------------------------------------------------------"
 
 
-wait = input("????")
+# wait = input("????")
 
-
-#intial write to new excel file
-# book = xlrd.open_workbook(files[0])
+# book = xlrd.open_workbook("TEMP.xlsx")
 # sheet = book.sheet_by_index(0)
-# first_file = sheet.cell(0,1).value
-book = xlrd.open_workbook("TEMP.xlsx")
-sheet = book.sheet_by_index(0)
 
-workbook = xlsxwriter.Workbook(first_file + ".xlsx")
-worksheet = workbook.add_worksheet()
-# worksheet.set_column(0,0,25)
+# workbook = xlsxwriter.Workbook(first_file + ".xlsx")
+# worksheet = workbook.add_worksheet()
+# # worksheet.set_column(0,0,25)
 
-cell_format = workbook.add_format()
-cell_format.set_num_format('mm/dd/yyyy hh:mm')
+# cell_format = workbook.add_format()
+# cell_format.set_num_format('mm/dd/yyyy hh:mm')
 
-for title in range(num_inputs):
-    worksheet.write(0,title,'Var'+str(title+1))
+# for title in range(num_inputs):
+#     worksheet.write(0,title,'Var'+str(title+1))
 
 # for rows in range(1,num_dates*24+1):
 #     val = sheet.cell(rows,num_inputs+4).value
 #     worksheet.write(rows,0,val,cell_format)
 
-data_points = input("How many data points in temp? ")
-# for data in range(1,points):
-
-serialcode = sheet.cell(1,num_inputs+2).value
-count = 1
-start = 1
-iterate = 1
-total=0
-for allvars in range(1,num_inputs):
-    while (iterate < data_points):
-        print iterate
-        iterate+=1
-        if (sheet.cell(iterate,num_inputs+2).value == serialcode):
-            tmp = sheet.cell(iterate,allvars).value
-            # tmp = tmp.encode('ascii')
-            # tmp = float(tmp)
-            total += tmp
-            iterate+=1
-        else:
-            worksheet.write(count,0,serialcode)
-            #print iterate,count
-            # print total,iterate
-            final = total/(iterate-start)
-            #print final
-            worksheet.write(count,1,final)
-            start=iterate
-            count+=1
-            serialcode = sheet.cell(iterate,num_inputs+2).value
-            print serialcode
-            total=0
 
 
-    worksheet.write(count,1,serialcode)
-    worksheet.write(count,0,sheet.cell(start,3).value)
-    final = total/(iterate-start)
-    worksheet.write(count,allvars,final)
-    # count=1
-    # iterate = 1
-    # start=1
-    # total =0
-
-    
-
-# startdate = raw_input("What is the start date in mm/dd/yyyy? ")
-# worksheet.write(1,5,startdate,cell_format)
-# cell_format1 = workbook.add_format()
-# cell_format1.set_num_format("mm/dd/yyyy hh:mm")
-# for date in range(2,num_dates*24+1):
-#     formula4 = '=$F'+str(date)+'+TIME(1,0,0)'
-#     worksheet.write(date,5,formula4,cell_format1)
-
-workbook.close()
-
-# wait = raw_input ("Continue? ")
-
-# tempbook = xlrd.open_workbook("TEMP.xlsx")
-# tempsheet = tempbook.sheet_by_index(0)
-
-# print tempsheet.cell(1,2).value
+# workbook.close()
