@@ -42,6 +42,13 @@ for f in files:
             worksheet.write(k,j,sheet.cell(i,j).value,cell_format)
         else:    
             val = sheet.cell(i,j).value
+            if type(val)==unicode:
+                if val=='':val =0
+                else:
+                    print val
+                    val = val.encode('ascii')
+                    val=float(val)
+            
             worksheet.write(k,j,val)
         j+=1
         if j > num_inputs-1:
