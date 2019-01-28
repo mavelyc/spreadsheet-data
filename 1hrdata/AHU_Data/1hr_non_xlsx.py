@@ -82,12 +82,12 @@ for date in range(2,num_dates*24+1):
 
 serial_letter1 = chr(ord('A')+num_inputs+2)
 serial_letter2 = chr(ord('A')+num_inputs+7)
-curr_col = chr(ord('A')+num_inputs+8)
 for var in range(1,num_inputs):
     var_letter = chr(ord('A')+var)
+    curr_col = chr(ord('A')+num_inputs+8+var-1)
     for aveif in range(1,num_dates*24+1):
         formula8 = '=IFERROR(AVERAGEIF($'+serial_letter1 + '$2:$' + serial_letter1 + '$' + str(k) + ',' + serial_letter2 + str(aveif+1) + ',$' + var_letter + '$2:$' + var_letter + '$' + str(k) +'),' + curr_col + str(aveif) + ')'  
-        worksheet.write(aveif,num_inputs+8,formula8)
+        worksheet.write(aveif,num_inputs+8+var-1,formula8)
 
 workbook.close()
 
@@ -97,26 +97,33 @@ print "-------------------------------------------------------------------------
 print "SAVE TEMP.XLSX FILE BEFORE CONTINUING!!"
 print "--------------------------------------------------------------------------"
 
+continue_process = raw_input("Continue (Y/N)? ")
 
-# wait = input("????")
+if (continue_process == 'Y' or continue_process=='y'):
+    book = xlrd.open_workbook("TEMP.xlsx")
+    sheet = book.sheet_by_index(0)
 
-# book = xlrd.open_workbook("TEMP.xlsx")
-# sheet = book.sheet_by_index(0)
+    workbook = xlsxwriter.Workbook(first_file + ".xlsx")
+    worksheet = workbook.add_worksheet()
+    worksheet.set_column(0,0,25)
 
-# workbook = xlsxwriter.Workbook(first_file + ".xlsx")
-# worksheet = workbook.add_worksheet()
-# # worksheet.set_column(0,0,25)
+    cell_format = workbook.add_format()
+    cell_format.set_num_format('mm/dd/yyyy hh:mm')
 
-# cell_format = workbook.add_format()
-# cell_format.set_num_format('mm/dd/yyyy hh:mm')
+    for title in range(num_inputs):
+        worksheet.write(0,title,'Var'+str(title+1))
 
-# for title in range(num_inputs):
-#     worksheet.write(0,title,'Var'+str(title+1))
+    for rows in range(1,num_dates*24+1):
+        val1 = sheet.cell(rows,num_inputs+4).value
+        # val2 = sheet.cell(rows,num_inputs+8).value
+        worksheet.write(rows,0,val1,cell_format)
+        # worksheet.write(rows,1,val2)
 
-# for rows in range(1,num_dates*24+1):
-#     val = sheet.cell(rows,num_inputs+4).value
-#     worksheet.write(rows,0,val,cell_format)
+    for variables in range(1,num_inputs):
+        for brows in range(1,num_dates*24+1):
+            val2 = sheet.cell(brows,num_inputs+8+variables-1).value
+            worksheet.write(brows,variables,val2)
 
 
 
-# workbook.close()
+workbook.close()
