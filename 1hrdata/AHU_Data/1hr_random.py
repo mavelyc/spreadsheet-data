@@ -3,6 +3,8 @@ import xlrd
 import xlsxwriter
 import glob
 import os
+import win32com.client as win32
+import time
 
 #glob set up
 filetype = raw_input("Common name between all files you want to scan? ")
@@ -98,38 +100,40 @@ for var in range(1,num_inputs):
 
 workbook.close()
 
+time.sleep(2)
 
 
-print "--------------------------------------------------------------------------"
-print "SAVE TEMP.XLSX FILE BEFORE CONTINUING!!"
-print "--------------------------------------------------------------------------"
+excel = win32.gencache.EnsureDispatch('Excel.application')
+wb = excel.Workbooks.Open(r'C:\Users\mavelyc\Desktop\Projects\spreadsheet-data-analysis\1hrdata\AHU_Data\TEMP.xlsx')
+excel.Visible = True
+wb.Sheets(1).Select()
+wb.Save()
+wb.Close()
+excel.Quit()
 
-continue_process = raw_input("Continue (Y/N)? ")
+book = xlrd.open_workbook("TEMP.xlsx")
+sheet = book.sheet_by_index(0)
 
-if (continue_process == 'Y' or continue_process=='y'):
-    book = xlrd.open_workbook("TEMP.xlsx")
-    sheet = book.sheet_by_index(0)
+workbook = xlsxwriter.Workbook(first_file + ".xlsx")
+worksheet = workbook.add_worksheet()
+worksheet.set_column(0,0,25)
 
-    workbook = xlsxwriter.Workbook(first_file + ".xlsx")
-    worksheet = workbook.add_worksheet()
-    worksheet.set_column(0,0,25)
+cell_format = workbook.add_format()
+cell_format.set_num_format('mm/dd/yyyy hh:mm')
 
-    cell_format = workbook.add_format()
-    cell_format.set_num_format('mm/dd/yyyy hh:mm')
+for title in range(num_inputs):
+    worksheet.write(0,title,'Var'+str(title+1))
 
-    for title in range(num_inputs):
-        worksheet.write(0,title,'Var'+str(title+1))
+for rows in range(1,num_dates*24+1):
+    val1 = sheet.cell(rows,num_inputs+4).value
+    # val2 = sheet.cell(rows,num_inputs+8).value
+    worksheet.write(rows,0,val1,cell_format)
+    # worksheet.write(rows,1,val2)
 
-    for rows in range(1,num_dates*24+1):
-        val1 = sheet.cell(rows,num_inputs+4).value
-        # val2 = sheet.cell(rows,num_inputs+8).value
-        worksheet.write(rows,0,val1,cell_format)
-        # worksheet.write(rows,1,val2)
-
-    for variables in range(1,num_inputs):
-        for brows in range(1,num_dates*24+1):
-            val2 = sheet.cell(brows,num_inputs+8+variables-1).value
-            worksheet.write(brows,variables,val2)
+for variables in range(1,num_inputs):
+    for brows in range(1,num_dates*24+1):
+        val2 = sheet.cell(brows,num_inputs+8+variables-1).value
+        worksheet.write(brows,variables,val2)
 
 
 
