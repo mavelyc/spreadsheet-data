@@ -8,12 +8,11 @@ import time
 
 #glob set up
 filetype = raw_input("Common name between all files you want to scan? ")
-ending = raw_input("File type/endings? ")
+#ending = raw_input("File type/endings? ")
 startdate = raw_input("What is the start date in mm/dd/yyyy? ")
-path = './' + filetype + '*.' + ending
+path = './' + filetype + '*.' + "xls"
 
 files = glob.glob(path)
-
 num_inputs = input("How many variables? ")
 num_dates = input("How many different dates? ")
 

@@ -4,8 +4,8 @@ import glob
 
 #glob set up
 filetype = raw_input("Common name between all files you want to scan? ")
-ending = raw_input("File type/endings? ")
-path = './' + filetype + '*.' + ending
+#ending = raw_input("File type/endings? ")
+path = './' + filetype + '*.' + "xls"
 
 files = glob.glob(path)
 
@@ -22,13 +22,6 @@ worksheet.set_column(0,0,25)
 
 for title in range(num_inputs):
     worksheet.write(0,title,'Var'+str(title+1))
-
-
-# worksheet.write(0,0,'Date')
-# worksheet.write(0,1,'Var1')
-# worksheet.write(0,2,'Var2')
-# worksheet.write(0,3,'Percent1')
-# worksheet.write(0,4,'Percent2')
 
 cell_format = workbook.add_format()
 cell_format.set_num_format('dd/mm/yyyy hh:mm')

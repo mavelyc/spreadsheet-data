@@ -4,8 +4,8 @@ import glob
 
 #glob set up
 filetype = raw_input("Common name between all files you want to scan? ")
-ending = raw_input("File type/endings? ")
-path = './' + filetype + '*.' + ending
+#ending = raw_input("File type/endings? ")
+path = './' + filetype + '*.' + "xls"
 
 files = glob.glob(path)
 
@@ -41,7 +41,8 @@ for f in files:
         else: 
             tmp = sheet.cell(i,j).value
             tmp = tmp.encode('ascii')
-            tmp = float(tmp)
+            if tmp == '': tmp = 0
+            else: tmp = float(tmp)
             worksheet.write(k,j,tmp)
         j+=1
         if j > 4:
