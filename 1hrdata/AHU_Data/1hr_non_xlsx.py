@@ -45,7 +45,7 @@ for f in files:
             if type(val)==unicode:
                 if val=='':val =0
                 else:
-                    print val
+                    #print val
                     val = val.encode('ascii')
                     val=float(val)
             
@@ -134,3 +134,4 @@ if (continue_process == 'Y' or continue_process=='y'):
 
 
 workbook.close()
+os.remove("TEMP.xlsx")
