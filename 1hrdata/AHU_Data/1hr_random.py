@@ -102,9 +102,12 @@ workbook.close()
 
 time.sleep(2)
 
+__location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+f = os.path.join(__location__, 'TEMP.xlsx')
+print f
 
 excel = win32.gencache.EnsureDispatch('Excel.application')
-wb = excel.Workbooks.Open(r'C:\Users\mavelyc\Desktop\Projects\spreadsheet-data-analysis\1hrdata\AHU_Data\TEMP.xlsx')
+wb = excel.Workbooks.Open(f)
 excel.Visible = True
 wb.Sheets(1).Select()
 wb.Save()
