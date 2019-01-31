@@ -18,7 +18,8 @@ for f in allFiles:
     df.drop_duplicates(subset="Time", keep="first",inplace=True)
     df.dropna(axis=0, how='any', thresh=None, subset=["Time"], inplace=True)
     df = df.reset_index()
-    df.drop(columns=["index"])
+    # df.drop(columns=["index"])
+    df.sort_values(by=['Time'])
     df_list.append(df)
 
 
