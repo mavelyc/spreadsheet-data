@@ -15,10 +15,16 @@ df_list = []
 for f in allFiles:
     df = pd.read_csv(f)
     df.rename(columns={"Value (%)":f[2:-4],"Value (°C)":f[2:-4]}, inplace=True)
+    df.drop_duplicates(subset="Time", keep="first",inplace=True)
+    df.dropna(axis=0, how='any', thresh=None, subset=["Time"], inplace=True)
+    df = df.reset_index()
+    df.drop(columns=["index"])
     df_list.append(df)
 
+
 final = pd.concat(df_list,sort=False,axis=1)
-final.to_csv('final.csv', index=False)
+final.to_csv('final2.csv', index=False)
+# writer = pd.ExcelWriter('final.xls')
 
 
 
