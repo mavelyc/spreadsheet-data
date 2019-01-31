@@ -7,17 +7,24 @@ import glob
 # path = './' + filetype + '*.' + "xls"
 # files = glob.glob(path)
  
-# allFiles = glob.glob("./*.csv")
+allFiles = glob.glob("./*.csv")
+#print(allFiles)
 
-# list_ = []
 
-# for file_ in allFiles:
-#     df = pd.read_csv(file_,index_col=None, header=0)
-#     list_.append(df)
-# print (list_)
+df_list = []
+for f in allFiles:
+    df = pd.read_csv(f)
+    df.rename(columns={"Value (%)":f[2:-4],"Value (°C)":f[2:-4]}, inplace=True)
+    df_list.append(df)
 
-df0 = pd.read_csv('TL_DS570CTA01_H_EvacAmRT_H5_TL.csv')
-df1 = pd.read_csv('TL_DS570CTA01_T_Evac_T5_TL.csv')
-df = pd.concat([df0,df1],axis=1)
+final = pd.concat(df_list,sort=False,axis=1)
+final.to_csv('final.csv', index=False)
 
-df.to_csv('final.csv', index=False)
+
+
+
+# df0 = pd.read_csv('TL_DS570CTA01_H_EvacAmRT_H5_TL.csv')
+# df1 = pd.read_csv('TL_DS570CTA01_T_Evac_T5_TL.csv')
+# df = pd.concat([df0,df1],axis=1)
+
+# df.to_csv('final.csv', index=False)
