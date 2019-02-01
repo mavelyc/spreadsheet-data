@@ -6,6 +6,8 @@ import glob
 # #ending = raw_input("File type/endings? ")
 # path = './' + filetype + '*.' + "xls"
 # files = glob.glob(path)
+
+filename = input("Name of output file? ")
  
 allFiles = glob.glob("./*.csv")
 #print(allFiles)
@@ -52,7 +54,7 @@ for f in allFiles:
 
 
 final = pd.concat(df_list,sort=False,axis=1)
-final.to_csv('final2.csv', index=False)
+final.to_csv(filename +".csv", index=False)
 # writer = pd.ExcelWriter('final.xls')
 
 
