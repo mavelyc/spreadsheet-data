@@ -15,7 +15,7 @@ df_list = []
 for f in allFiles:
     df = pd.read_csv(f)
     df.rename(columns={"Value (%)":f[2:-4],"Value (°C)":f[2:-4]}, inplace=True)
-    df.drop_duplicates(subset="Time", keep="first",inplace=True)
+    #df.drop_duplicates(subset="Time", keep="first",inplace=True)
     #df.dropna(axis=0, how='any', thresh=None, subset=["Time"], inplace=True)
     df = df.reset_index()
     df.sort_values(by=['Time'])
@@ -23,7 +23,7 @@ for f in allFiles:
     
     df['Hour'] = pd.to_datetime(df['Time']).dt.hour
     df["Ave_Time"] = ""
-    df["Ave_Val"] = ""
+    df["AVE "+f[2:-4]] = ""
     hour_val = df['Hour'][0]
     total = 0
     count = 0
@@ -36,7 +36,7 @@ for f in allFiles:
         else:
             df.iloc[count, df.columns.get_loc('Ave_Time')] = df["Time"][index-1]
             ave = total/ave_tally
-            df.iloc[count, df.columns.get_loc('Ave_Val')] = ave
+            df.iloc[count, df.columns.get_loc('AVE '+f[2:-4])] = ave
             hour_val = row['Hour']
             total=row[f[2:-4]]
             count += 1
@@ -45,8 +45,8 @@ for f in allFiles:
     globindex+=1
     df.iloc[count, df.columns.get_loc('Ave_Time')] = df["Time"][globindex-1]
     ave = total/ave_tally
-    df.iloc[count, df.columns.get_loc('Ave_Val')] = ave
-    df[""] = ""
+    df.iloc[count, df.columns.get_loc('AVE '+f[2:-4])] = ave
+    df = df.drop(columns=["Time",f[2:-4],"Hour"])
     df_list.append(df)
 
 
