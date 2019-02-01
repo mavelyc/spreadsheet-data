@@ -18,9 +18,10 @@ for f in allFiles:
     df.drop_duplicates(subset="Time", keep="first",inplace=True)
     df.dropna(axis=0, how='any', thresh=None, subset=["Time"], inplace=True)
     df = df.reset_index()
-    # df.drop(columns=["index"])
     df.sort_values(by=['Time'])
+    df = df.drop(columns=["index"])
     df_list.append(df)
+
 
 
 final = pd.concat(df_list,sort=False,axis=1)
