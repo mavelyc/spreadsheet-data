@@ -33,7 +33,7 @@ for index, row in df.iterrows():
         total += row[f[2:-4]]
         ave_tally+=1
     else:
-        df.iloc[count, df.columns.get_loc('Ave_Time')] = df["Time"][index]
+        df.iloc[count, df.columns.get_loc('Ave_Time')] = df["Time"][index-1]
         ave = total/ave_tally
         df.iloc[count, df.columns.get_loc('AVE '+f[2:-4])] = ave
         hour_val = row['Hour']
@@ -41,7 +41,8 @@ for index, row in df.iterrows():
         count += 1
         ave_tally =1
     globindex = index
-df.iloc[count, df.columns.get_loc('Ave_Time')] = df["Time"][0]
+globindex+=1
+df.iloc[count, df.columns.get_loc('Ave_Time')] = df["Time"][globindex-1]
 ave = total/ave_tally
 df.iloc[count, df.columns.get_loc('AVE '+f[2:-4])] = ave
 df = df.drop(columns=["Time",f[2:-4],"Hour"])

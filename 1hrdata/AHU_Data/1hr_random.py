@@ -12,7 +12,8 @@ filetype = raw_input("Common name between all files you want to scan? ")
 startdate = raw_input("What is the start date in mm/dd/yyyy? ")
 path = './' + filetype + '*.' + "xls"
 
-files = glob.glob(path)
+files = ["Book1.csv"]
+print files
 num_inputs = input("How many variables? ")
 num_dates = input("How many different dates? ")
 
@@ -34,7 +35,7 @@ cell_format.set_num_format('mm/dd/yyyy hh:mm')
 
 k=1
 for f in files:
-    book = xlrd.open_workbook(f)
+    book = xlrd.open_workbook("Book1.csv")
     sheet = book.sheet_by_index(0)
     j=0
     i=7
