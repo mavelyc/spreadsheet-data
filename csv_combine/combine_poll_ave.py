@@ -25,6 +25,7 @@ hour_val = df['Hour'][0]
 total = 0
 count = 0
 ave_tally = 0
+date_index = 0
 for index, row in df.iterrows():
     print (index)
     print (row[f[2:-4]])
@@ -33,22 +34,21 @@ for index, row in df.iterrows():
         total += row[f[2:-4]]
         ave_tally+=1
     else:
-        df.iloc[count, df.columns.get_loc('Ave_Time')] = df["Time"][index-1]
+        df.iloc[count, df.columns.get_loc('Ave_Time')] = df["Time"][date_index]
         ave = total/ave_tally
         df.iloc[count, df.columns.get_loc('AVE '+f[2:-4])] = ave
         hour_val = row['Hour']
         total=row[f[2:-4]]
         count += 1
         ave_tally =1
+        date_index = index
     globindex = index
 globindex+=1
 df.iloc[count, df.columns.get_loc('Ave_Time')] = df["Time"][globindex-1]
 ave = total/ave_tally
 df.iloc[count, df.columns.get_loc('AVE '+f[2:-4])] = ave
-df['Hour2'] = pd.to_datetime(df['Ave_Time']).dt.hour
-df['newDate'] = pd.to_datetime(pd.to_datetime(df['Ave_Time']).dt.hour + pd.to_datetime(df['Ave_Time']).dt.day)
 
-#df = df.drop(columns=["Time",f[2:-4],"Hour"])
+df = df.drop(columns=["Time",f[2:-4],"Hour"])
 df.to_csv(filename +".csv", index=False)
 # writer = pd.ExcelWriter('final.xls')
 
