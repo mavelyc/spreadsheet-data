@@ -52,8 +52,10 @@ df["FillHour"] = pd.to_datetime(df['Ave_Time']).dt.hour
 init_time = df["FillHour"][0]
 print (init_time)
 
-# for index, row in df.iterrows():
-#     if (pd.isnull(row[f["Ave_Time"])): break
+for index, row in df.iterrows():
+    print(index)
+    if(pd.isnull(row["FillHour"])): 
+        break
     
 
 df.to_csv(filename +".csv", index=False)
