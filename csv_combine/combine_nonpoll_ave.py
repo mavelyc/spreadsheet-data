@@ -45,9 +45,17 @@ globindex+=1
 df.iloc[count, df.columns.get_loc('Ave_Time')] = df["Time"][globindex-1]
 ave = total/ave_tally
 df.iloc[count, df.columns.get_loc('AVE '+f[2:-4])] = ave
-# df['Hour2'] = df['Ave_Time'][3].replace(hour=0)
 
-#df = df.drop(columns=["Time",f[2:-4],"Hour"])
+df = df.drop(columns=["Time",f[2:-4],"Hour"])
+df["FillHour"] = pd.to_datetime(df['Ave_Time']).dt.hour
+
+init_time = df["FillHour"][0]
+print (init_time)
+
+# for index, row in df.iterrows():
+#     if (pd.isnull(row[f["Ave_Time"])): break
+    
+
 df.to_csv(filename +".csv", index=False)
 # writer = pd.ExcelWriter('final.xls')
 
