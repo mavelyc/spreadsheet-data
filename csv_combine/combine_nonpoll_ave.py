@@ -26,14 +26,14 @@ total = 0
 count = 0
 ave_tally = 0
 for index, row in df.iterrows():
-    print (index)
-    print (row[f[2:-4]])
+    # print (index)
+    # print (row[f[2:-4]])
     if (pd.isnull(row[f[2:-4]])): break
     if (row['Hour'] == hour_val):
         total += row[f[2:-4]]
         ave_tally+=1
     else:
-        df.iloc[count, df.columns.get_loc('Ave_Time')] = df["Time"][index-1]
+        df.iloc[count, df.columns.get_loc('Ave_Time')] = pd.Timestamp(df["Time"][index-1]).replace(minute=0)
         ave = total/ave_tally
         df.iloc[count, df.columns.get_loc('AVE '+f[2:-4])] = ave
         hour_val = row['Hour']
@@ -45,8 +45,7 @@ globindex+=1
 df.iloc[count, df.columns.get_loc('Ave_Time')] = df["Time"][globindex-1]
 ave = total/ave_tally
 df.iloc[count, df.columns.get_loc('AVE '+f[2:-4])] = ave
-df['Hour2'] = pd.to_datetime(df['Ave_Time']).dt.hour
-df['newDate'] = pd.to_datetime(pd.to_datetime(df['Ave_Time']).dt.hour + pd.to_datetime(df['Ave_Time']).dt.day)
+# df['Hour2'] = df['Ave_Time'][3].replace(hour=0)
 
 #df = df.drop(columns=["Time",f[2:-4],"Hour"])
 df.to_csv(filename +".csv", index=False)
