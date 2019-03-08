@@ -1,4 +1,5 @@
 import pandas as pd
+import datetime
 
 # #glob set up
 # filetype = raw_input("Common name between all files you want to scan? ")
@@ -48,14 +49,23 @@ df.iloc[count, df.columns.get_loc('AVE '+f[2:-4])] = ave
 
 df = df.drop(columns=["Time",f[2:-4],"Hour"])
 df["FillHour"] = pd.to_datetime(df['Ave_Time']).dt.hour
+df["FillDate"] = pd.to_datetime(df['Ave_Time']).dt.date
+df["New"] = ""
 
 init_time = df["FillHour"][0]
-print (init_time)
+#print (init_time)
 
+count=0
 for index, row in df.iterrows():
-    print(index)
+    # print(df.iloc[count, df.columns.get_loc("Ave_Time")])
+    # count+=1
     if(pd.isnull(row["FillHour"])): 
         break
+    tmp = datetime.time(hour=int(row["FillHour"]))
+    tmp2 = row["FillDate"]
+    tmp3=int(row["FillHour"])
+    df.iloc[count, df.columns.get_loc('New')]= "8"#pd.Timestamp.combine(tmp2,tmp)
+    count+=1
     
 
 df.to_csv(filename +".csv", index=False)
