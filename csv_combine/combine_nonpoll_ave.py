@@ -63,8 +63,8 @@ for index, row in df.iterrows():
         break
     tmp = datetime.time(hour=int(row["FillHour"]))
     tmp2 = row["FillDate"]
-    tmp3=int(row["FillHour"])
-    df.iloc[count, df.columns.get_loc('New')]= "8"#pd.Timestamp.combine(tmp2,tmp)
+    # tmp3=int(row["FillHour"])
+    df.iloc[count, df.columns.get_loc('New')]= pd.Timestamp.combine(tmp2,tmp)
     count+=1
     
 
