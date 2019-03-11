@@ -74,8 +74,8 @@ for index, row in df.iterrows():
                 #print (init_time)
                 check=0
                 date_count+=1
-                init_time=0
-            hour = datetime.time(hour=int(check))
+                init_time=-1
+            hour = datetime.time(hour=int(init_time+1))
             date = df["FillDate"][date_count]
             print(date)
             df.iloc[count, df.columns.get_loc('New')]= pd.Timestamp.combine(date,hour)
@@ -86,6 +86,7 @@ for index, row in df.iterrows():
         hour = datetime.time(hour=int(row["FillHour"]))
         date = row["FillDate"]
         df.iloc[count, df.columns.get_loc('New')]= pd.Timestamp.combine(date,hour)
+        count+=1
         init_time = row["FillHour"]
         date_count=index
 
