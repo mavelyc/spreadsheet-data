@@ -7,9 +7,9 @@ import datetime
 # path = './' + filetype + '*.' + "xls"
 # files = glob.glob(path)
 
-filename = "final"
+filename = "Output"
  
-f = "./Book1.csv"
+f = "./Input.csv"
 
 df = pd.read_csv(f)
 df.rename(columns={"Value (%)":f[2:-4],"Value (°C)":f[2:-4]}, inplace=True)
@@ -27,8 +27,8 @@ total = 0
 count = 0
 ave_tally = 0
 for index, row in df.iterrows():
-    # print (index)
-    # print (row[f[2:-4]])
+    #print (index)
+    #print (row[f[2:-4]])
     if (pd.isnull(row[f[2:-4]])): break
     if (row['Hour'] == hour_val):
         total += row[f[2:-4]]
@@ -59,6 +59,7 @@ flag=0
 count=0
 val_count=0
 for index, row in df.iterrows():
+    #print(row["FillHour"])
     # print(df.iloc[count, df.columns.get_loc("Ave_Time")])
     # count+=1
     if(pd.isnull(row["FillHour"])): 
@@ -69,9 +70,11 @@ for index, row in df.iterrows():
         flag=1
         count+=1
     else:
-        #print(row["FillHour"])
+        print(row["FillHour"])
         while(row["FillHour"]!=init_time+1):
+            print(row["FillHour"],init_time+1)
             check = init_time+1
+            if(int(check)==24 and row["FillHour"]==0): break
             if(check>23):
                 #print (init_time)
                 check=0
@@ -96,9 +99,9 @@ for index, row in df.iterrows():
         date_count=index
 
     
-df = df.drop(columns=['AVE '+f[2:-4],"Ave_Time","FillHour","FillDate"])   
+#df = df.drop(columns=['AVE '+f[2:-4],"Ave_Time","FillHour","FillDate"])   
 
-df.to_csv("Book1" +".csv", index=False)
+df.to_csv(filename +".csv", index=False)
 # writer = pd.ExcelWriter('final.xls')
 
 
