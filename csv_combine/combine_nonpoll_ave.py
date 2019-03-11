@@ -50,24 +50,26 @@ df.iloc[count, df.columns.get_loc('AVE '+f[2:-4])] = ave
 df = df.drop(columns=["Time",f[2:-4],"Hour"])
 df["FillHour"] = pd.to_datetime(df['Ave_Time']).dt.hour
 df["FillDate"] = pd.to_datetime(df['Ave_Time']).dt.date
-df["New"] = ""
+df["Hourly_Time"] = ""
+df["Ave_Value"] = ""
 
 init_time = df["FillHour"][0]
 date_count = 0
 flag=0
-
 count=0
+val_count=0
 for index, row in df.iterrows():
     # print(df.iloc[count, df.columns.get_loc("Ave_Time")])
     # count+=1
     if(pd.isnull(row["FillHour"])): 
         break
     if(flag==0):
-        df.iloc[0, df.columns.get_loc('New')]= row["Ave_Time"]
+        df.iloc[0, df.columns.get_loc('Hourly_Time')]= row["Ave_Time"]
+        df.iloc[count, df.columns.get_loc("Ave_Value")]= df['AVE '+f[2:-4]][val_count]
         flag=1
         count+=1
     else:
-        print(row["FillHour"])
+        #print(row["FillHour"])
         while(row["FillHour"]!=init_time+1):
             check = init_time+1
             if(check>23):
@@ -77,21 +79,24 @@ for index, row in df.iterrows():
                 init_time=-1
             hour = datetime.time(hour=int(init_time+1))
             date = df["FillDate"][date_count]
-            print(date)
-            df.iloc[count, df.columns.get_loc('New')]= pd.Timestamp.combine(date,hour)
+            #print(date)
+            df.iloc[count, df.columns.get_loc('Hourly_Time')]= pd.Timestamp.combine(date,hour)
+            df.iloc[count, df.columns.get_loc("Ave_Value")]= df['AVE '+f[2:-4]][val_count]
 
-            #df.iloc[count, df.columns.get_loc('New')]= row["Ave_Time"] 
+            #df.iloc[count, df.columns.get_loc('Hourly_Time')]= row["Ave_Time"] 
             init_time+=1
             count+=1
+        val_count+=1
         hour = datetime.time(hour=int(row["FillHour"]))
         date = row["FillDate"]
-        df.iloc[count, df.columns.get_loc('New')]= pd.Timestamp.combine(date,hour)
+        df.iloc[count, df.columns.get_loc('Hourly_Time')]= pd.Timestamp.combine(date,hour)
+        df.iloc[count, df.columns.get_loc("Ave_Value")]= df['AVE '+f[2:-4]][val_count]
         count+=1
         init_time = row["FillHour"]
         date_count=index
 
     
-    
+df = df.drop(columns=['AVE '+f[2:-4],"Ave_Time","FillHour","FillDate"])   
 
 df.to_csv(filename +".csv", index=False)
 # writer = pd.ExcelWriter('final.xls')
