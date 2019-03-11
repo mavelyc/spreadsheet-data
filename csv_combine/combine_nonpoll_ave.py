@@ -98,7 +98,7 @@ for index, row in df.iterrows():
     
 df = df.drop(columns=['AVE '+f[2:-4],"Ave_Time","FillHour","FillDate"])   
 
-df.to_csv(filename +".csv", index=False)
+df.to_csv("Book1" +".csv", index=False)
 # writer = pd.ExcelWriter('final.xls')
 
 
