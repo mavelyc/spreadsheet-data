@@ -70,9 +70,9 @@ for index, row in df.iterrows():
         flag=1
         count+=1
     else:
-        print(row["FillHour"])
+        #print(row["FillHour"])
         while(row["FillHour"]!=init_time+1):
-            print(row["FillHour"],init_time+1)
+            #print(row["FillHour"],init_time+1)
             check = init_time+1
             if(int(check)==24 and row["FillHour"]==0): break
             if(check>23):
@@ -99,7 +99,7 @@ for index, row in df.iterrows():
         date_count=index
 
     
-#df = df.drop(columns=['AVE '+f[2:-4],"Ave_Time","FillHour","FillDate"])   
+df = df.drop(columns=['AVE '+f[2:-4],"Ave_Time","FillHour","FillDate"])   
 
 df.to_csv(filename +".csv", index=False)
 # writer = pd.ExcelWriter('final.xls')
