@@ -53,7 +53,8 @@ df["FillDate"] = pd.to_datetime(df['Ave_Time']).dt.date
 df["New"] = ""
 
 init_time = df["FillHour"][0]
-#print (init_time)
+date_count = 0
+flag=0
 
 count=0
 for index, row in df.iterrows():
@@ -61,11 +62,34 @@ for index, row in df.iterrows():
     # count+=1
     if(pd.isnull(row["FillHour"])): 
         break
-    tmp = datetime.time(hour=int(row["FillHour"]))
-    tmp2 = row["FillDate"]
-    # tmp3=int(row["FillHour"])
-    df.iloc[count, df.columns.get_loc('New')]= pd.Timestamp.combine(tmp2,tmp)
-    count+=1
+    if(flag==0):
+        df.iloc[0, df.columns.get_loc('New')]= row["Ave_Time"]
+        flag=1
+        count+=1
+    else:
+        print(row["FillHour"])
+        while(row["FillHour"]!=init_time+1):
+            check = init_time+1
+            if(check>23):
+                #print (init_time)
+                check=0
+                date_count+=1
+                init_time=0
+            hour = datetime.time(hour=int(check))
+            date = df["FillDate"][date_count]
+            print(date)
+            df.iloc[count, df.columns.get_loc('New')]= pd.Timestamp.combine(date,hour)
+
+            #df.iloc[count, df.columns.get_loc('New')]= row["Ave_Time"] 
+            init_time+=1
+            count+=1
+        hour = datetime.time(hour=int(row["FillHour"]))
+        date = row["FillDate"]
+        df.iloc[count, df.columns.get_loc('New')]= pd.Timestamp.combine(date,hour)
+        init_time = row["FillHour"]
+        date_count=index
+
+    
     
 
 df.to_csv(filename +".csv", index=False)
