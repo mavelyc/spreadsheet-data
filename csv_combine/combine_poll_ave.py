@@ -6,9 +6,9 @@ import pandas as pd
 # path = './' + filetype + '*.' + "xls"
 # files = glob.glob(path)
 
-filename = "final"
+filename = "Output"
  
-f = "./Book1.csv"
+f = "./Input.csv"
 
 df = pd.read_csv(f)
 df.rename(columns={"Value (%)":f[2:-4],"Value (°C)":f[2:-4]}, inplace=True)
@@ -27,8 +27,8 @@ count = 0
 ave_tally = 0
 date_index = 0
 for index, row in df.iterrows():
-    print (index)
-    print (row[f[2:-4]])
+    #print (index)
+    #print (row[f[2:-4]])
     if (pd.isnull(row[f[2:-4]])): break
     if (row['Hour'] == hour_val):
         total += row[f[2:-4]]
