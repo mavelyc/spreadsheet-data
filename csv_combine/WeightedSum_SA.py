@@ -4,6 +4,7 @@ from pandas import ExcelFile
 
 flag = 0
 list1 = []
+list2 = []
 
 for filename in glob.glob("C:/Users/mavelyc/Desktop/PRH_January_Data/*/*/*Data.xlsx"):
     print (filename)
@@ -14,6 +15,12 @@ for filename in glob.glob("C:/Users/mavelyc/Desktop/PRH_January_Data/*/*/*Data.x
         xl_workbook = pd.ExcelFile(filename)
         df = xl_workbook.parse("Sheet1")
         list1 = df.iloc[:,5].tolist()
+        list2 = df.iloc[:,7].tolist()
+        count=0
+        for i in list1:
+            list1[count]=i*list2[count]
+            count+=1
+        #print (list2)
         #print(list1)
         flag=1
     else:
@@ -23,7 +30,8 @@ for filename in glob.glob("C:/Users/mavelyc/Desktop/PRH_January_Data/*/*/*Data.x
         for i in df.iloc[:,5]:
             #print(i)
             tmp = list1[count]
-            list1[count] = tmp+i
+            tmp2 = list2[count]
+            list1[count] = list1[count] + tmp*tmp2
             count+=1
         print(list1)
 
