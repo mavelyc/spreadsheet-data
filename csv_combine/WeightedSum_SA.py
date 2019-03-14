@@ -26,12 +26,13 @@ for filename in glob.glob("C:/Users/mavelyc/Desktop/PRH_January_Data/*/*/*Data.x
     else:
         xl_workbook = pd.ExcelFile(filename)
         df = xl_workbook.parse("Sheet1")
+        list2 = df.iloc[:,7].tolist()
         count=0
         for i in df.iloc[:,5]:
             #print(i)
             tmp = list1[count]
             tmp2 = list2[count]
-            list1[count] = list1[count] + tmp*tmp2
+            list1[count] = tmp + i*tmp2
             count+=1
         print(list1)
 
