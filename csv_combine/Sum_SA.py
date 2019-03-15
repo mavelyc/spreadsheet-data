@@ -8,8 +8,8 @@ list1 = []
 for filename in glob.glob("C:/Users/mavelyc/Desktop/PRH_January_Data/*/*/*Data.xlsx"):
     print (filename)
     if (filename=="C:/Users/mavelyc/Desktop/PRH_January_Data\System05\D-06-70-CTA-08\Hourly_Data.xlsx"
-        or filename=="C:/Users/mavelyc/Desktop/PRH_January_Data\System08\D-20N-70-CTA-02\Hourly_Data.xlsx"
-        or filename=="C:/Users/mavelyc/Desktop/PRH_January_Data\System10\B1-06-70-CTA-04\Hourly_Data.xlsx"):continue
+        or filename=="C:/Users/mavelyc/Desktop/PRH_January_Data\System08\D-20N-70-CTA-02\Hourly_Data.xlsx"):continue
+        #or filename=="C:/Users/mavelyc/Desktop/PRH_January_Data\System10\B1-06-70-CTA-04\Hourly_Data.xlsx"):continue
     if(flag==0):
         xl_workbook = pd.ExcelFile(filename)
         df = xl_workbook.parse("Sheet1")
