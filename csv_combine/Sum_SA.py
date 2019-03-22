@@ -18,13 +18,14 @@ for filename in glob.glob("C:/Users/mavelyc/Desktop/PRH_January_Data/*/*/*Data.x
     else:
         xl_workbook = pd.ExcelFile(filename)
         df = xl_workbook.parse("Sheet1")
+        newlist = (df.iloc[:,5]+df.iloc[:,9]).tolist()
         count=0
-        for i in df.iloc[:,5]:
+        for i in newlist:
             #print(i)
             tmp = list1[count]
             list1[count] = tmp+i
             count+=1
-        print(list1)
+    print(list1)
 
 # df2=pd.DataFrame({'Value': list1})
 # wb = load_workbook('C:/Users/mavelyc/Desktop/PRH_January_Data/SUM_SA.xlsx')
