@@ -13,8 +13,7 @@ for filename in glob.glob("C:/Users/mavelyc/Desktop/PRH_January_Data/*/*/*Data.x
     if(flag==0):
         xl_workbook = pd.ExcelFile(filename)
         df = xl_workbook.parse("Sheet1")
-        list1 = df.iloc[:,5].tolist()
-        #print(list1)
+        list1 = (df.iloc[:,5]+df.iloc[:,9]).tolist()
         flag=1
     else:
         xl_workbook = pd.ExcelFile(filename)
