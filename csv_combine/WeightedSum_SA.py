@@ -14,7 +14,7 @@ for filename in glob.glob("C:/Users/mavelyc/Desktop/PRH_January_Data/*/*/*Data.x
     if(flag==0):
         xl_workbook = pd.ExcelFile(filename)
         df = xl_workbook.parse("Sheet1")
-        list1 = df.iloc[:,5].tolist()
+        list1 = (df.iloc[:,5]+df.iloc[:,9]).tolist()
         list2 = df.iloc[:,7].tolist()
         count=0
         for i in list1:
@@ -27,13 +27,15 @@ for filename in glob.glob("C:/Users/mavelyc/Desktop/PRH_January_Data/*/*/*Data.x
         xl_workbook = pd.ExcelFile(filename)
         df = xl_workbook.parse("Sheet1")
         list2 = df.iloc[:,7].tolist()
+        list3= (df.iloc[:,5]+df.iloc[:,9]).tolist()
         count=0
-        for i in df.iloc[:,5]:
+        for i in list3:
             #print(i)
             tmp = list1[count]
             tmp2 = list2[count]
             list1[count] = tmp + i*tmp2
             count+=1
+
         print(list1)
 
 # df2=pd.DataFrame({'Value': list1})
