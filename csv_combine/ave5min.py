@@ -2,7 +2,7 @@
 
 import pandas as pd
 
-df=pd.read_csv("Book1.csv")
+df=pd.read_csv("Input.csv")
 df['Hour'] = pd.to_datetime(df['Time']).dt.hour
 df[""] = ""
 df["Ave_Time"] = ""
@@ -34,4 +34,4 @@ globindex+=1
 df.iloc[count, df.columns.get_loc('Ave_Time')] = df["Time"][globindex-1]
 ave = total/ave_tally
 df.iloc[count, df.columns.get_loc('Val')] = ave
-df.to_csv("help.csv")
+df.to_csv("Output.csv")
